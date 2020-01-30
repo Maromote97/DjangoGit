@@ -1,38 +1,51 @@
-from django.shortcuts import render
-from Wypozyczalnia_App.models import *
-from Wypozyczalnia_App.serializers import *
-from rest_framework import generics
-from django.contrib.auth.models import User
-from rest_framework import permissions
-from Ksiegarnia_App.permissions import *
+from django.http import HttpResponse
+from rest_framework import generics, permissions
+from rest_framework.permissions import *
+
+from .serializers import *
+
+
+def index(request):
+    return HttpResponse("index")
 
 
 class KlientList(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly, permissions.DjangoModelPermissionsOrAnonReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly,
+                          DjangoModelPermissionsOrAnonReadOnly]
     queryset = Klient.objects.all()
     serializer_class = KlientSerializer
+
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save()
 
 
 class KlientDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Klient.objects.all()
     serializer_class = KlientSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Klient.objects.filter(pk=pk)
+
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save()
+
 
 class KsiazkaList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Ksiazka.objects.all()
     serializer_class = KsiazkaSerializer
+
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save()
 
 
 class KsiazkaDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Ksiazka.objects.all()
     serializer_class = KsiazkaSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Ksiazka.objects.filter(pk=pk)
 
 
 class PracownikList(generics.ListCreateAPIView):
@@ -41,8 +54,11 @@ class PracownikList(generics.ListCreateAPIView):
 
 
 class PracownikDetail(generics.RetrieveAPIView):
-    queryset = Pracownik.objects.all()
     serializer_class = PracownikSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Pracownik.objects.filter(pk=pk)
 
 
 class WypozyczanieList(generics.ListCreateAPIView):
@@ -51,15 +67,8 @@ class WypozyczanieList(generics.ListCreateAPIView):
 
 
 class WypozyczanieDetail(generics.RetrieveDestroyAPIView):
-    queryset = Wypozyczanie.objects.all()
     serializer_class = WypozyczanieSerializer
 
-class UserList(generics.ListAPIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-class UserDetail(generics.RetrieveAPIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Wypozyczanie.objects.filter(pk=pk)

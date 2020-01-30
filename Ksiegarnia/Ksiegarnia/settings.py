@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'lnvf!w99b#ni27q(*7adz%c1p*7wp4uaiz0m)-&%iuhcs_eg(f'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -72,18 +70,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Ksiegarnia.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'HOST': '213.184.8.199',
-        'PORT': '3306',
         'NAME': 'makowskim',
-        'USER': 'makowskimm',
-        'PASSWORD': 'mariusz',
+        'USER': 'makowskim',
+        'LOGIN': 'makowskim',
+        'PASSWORD': 'Doton124',
+        'HOST': 'bad.uwm.edu.pl',
+        'PORT': 3306,
     }
 }
 
@@ -105,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -118,7 +115,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
