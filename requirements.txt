@@ -3,7 +3,7 @@ attrs==19.3.0
 colorama==0.4.3
 Django==2.2.7
 django-cleanup==4.0.0
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 more-itertools==8.0.2
 mysql-connector-python==8.0.18
 packaging==20.0
